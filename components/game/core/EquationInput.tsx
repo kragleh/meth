@@ -101,14 +101,16 @@ const EquationInput = () => {
         spellCheck="false"
       />
 
-      {currentInput.map((digit, index) => (
-        <InputCharacter
-          key={`input-${index}`}
-          character={digit}
-          index={baseIndex + index}
-          input={true}
-        />
-      ))}
+      {
+        currentInput.map((digit, index) => (
+          <InputCharacter
+            key={`input-${index}`}
+            character={digit}
+            index={baseIndex + index}
+            input={true}
+          />
+        ))
+      }
     </div>
   )
 }
