@@ -1,9 +1,8 @@
 "use client"
 import { useEffect } from "react"
-import { useGame } from "../providers/GameProvider"
+import { useGame } from "../../providers/GameProvider"
 import { generateEquation } from "@/lib/Equation"
 import InputCharacter from "./InputCharacter"
-import { AnimatePresence } from "motion/react"
 import { randomInt } from "@/lib/Random"
 
 const EquationInput = () => {
@@ -11,10 +10,8 @@ const EquationInput = () => {
     currentEquation, 
     currentInput, 
     setCurrentInput, 
-    setCurrentEquation, 
-    currentLength, 
-    randomLength,
-    enabledOperations
+    setCurrentEquation,
+    settings
   } = useGame()
 
   useEffect(() => {
@@ -73,7 +70,6 @@ const EquationInput = () => {
 
       if (currentInput.length > 5) return
 
-      // Fix for decimal points!!!
       if (!/^[0-9.-]$/.test(event.key)) return
 
       const nextInput = [...currentInput, event.key]
@@ -88,18 +84,14 @@ const EquationInput = () => {
     }
 
     const newEquation = () => {
-      if (randomLength) {
-        setCurrentEquation(generateEquation(randomInt(1, currentLength), enabledOperations))
-      } else {
-        setCurrentEquation(generateEquation(currentLength, enabledOperations))
-      }
+      setCurrentEquation(generateEquation(settings.length, settings.operations, settings.randomLength))
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [currentEquation, currentInput, setCurrentInput, setCurrentEquation, currentLength, randomLength, enabledOperations])
+  }, [currentEquation, currentInput, setCurrentInput, setCurrentEquation, settings])
 
   if (!currentEquation) return null
 
@@ -107,16 +99,16 @@ const EquationInput = () => {
 
   return (
     <div className="flex">
-      {/* <AnimatePresence mode="popLayout"> */}
-        {currentInput.map((digit, index) => (
+      {
+        currentInput.map((digit, index) => (
           <InputCharacter
             key={`input-${index}`}
             character={digit}
             index={baseIndex + index}
             input={true}
           />
-        ))}
-      {/* </AnimatePresence> */}
+        ))
+      }
     </div>
   )
 }

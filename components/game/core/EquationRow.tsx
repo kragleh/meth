@@ -1,5 +1,5 @@
 "use client"
-import { useGame } from '../providers/GameProvider'
+import { useGame } from '../../providers/GameProvider'
 import { equationToString } from '@/lib/Equation'
 import EquationInput from './EquationInput'
 import InputCharacter from './InputCharacter'

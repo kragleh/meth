@@ -3,6 +3,12 @@ import { Equation, generateEquation } from "@/lib/Equation";
 import { GameType } from "@/lib/GameType";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
 
+export interface GameSettings {
+  length: number;
+  randomLength: boolean;
+  operations: string[];
+}
+
 interface GameContextType {
   gameType: GameType;
   setGameType: Dispatch<SetStateAction<GameType>>;
@@ -10,12 +16,9 @@ interface GameContextType {
   setCurrentEquation: Dispatch<SetStateAction<Equation | undefined>>;
   currentInput: string[];
   setCurrentInput: Dispatch<SetStateAction<string[]>>;
-  currentLength: number;
-  setCurrentLength: Dispatch<SetStateAction<number>>;
-  randomLength: boolean;
-  setRandomLength: Dispatch<SetStateAction<boolean>>;
-  enabledOperations: string[];
-  setEnabledOperations: Dispatch<SetStateAction<string[]>>;
+  settings: GameSettings;
+  setSettings: Dispatch<SetStateAction<GameSettings>>;
+  updateSettings: (partial: Partial<GameSettings>) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -24,12 +27,24 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [gameType, setGameType] = useState<GameType>(GameType.ZEN)
   const [currentEquation, setCurrentEquation] = useState<Equation | undefined>(undefined)
   const [currentInput, setCurrentInput] = useState<string[]>([])
-  const [currentLength, setCurrentLength] = useState<number>(3)
-  const [randomLength, setRandomLength] = useState<boolean>(true)
-  const [enabledOperations, setEnabledOperations] = useState<string[]>(['+', '-', '/', '*'])
+
+  const [settings, setSettings] = useState<GameSettings>({
+    length: 3,
+    randomLength: true,
+    operations: ['+', '-', '/', '*'],
+  })
+
+  const updateSettings = (partial: Partial<GameSettings>) => {
+    setSettings((prev) => {
+      const nextSettings = { ...prev, ...partial }
+
+      setCurrentEquation(generateEquation(nextSettings.length, nextSettings.operations, nextSettings.randomLength))
+      return nextSettings
+    })
+  }
 
   useEffect(() => {
-    setCurrentEquation(generateEquation())
+    setCurrentEquation(generateEquation(settings.length, settings.operations, settings.randomLength))
   }, [])
 
   return (
@@ -38,9 +53,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
         gameType, setGameType, 
         currentEquation, setCurrentEquation,
         currentInput, setCurrentInput,
-        currentLength, setCurrentLength,
-        randomLength, setRandomLength,
-        enabledOperations, setEnabledOperations
+        settings, setSettings, updateSettings,
       }}
     >
       { children }

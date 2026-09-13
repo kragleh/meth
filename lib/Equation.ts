@@ -31,8 +31,13 @@ export const equationToString = (equation: Equation): string => {
 
 export const generateEquation = (
   termCount: number = 2, 
-  enabledOperations: string[] = ['+', '-', '*', '/']
+  enabledOperations: string[] = ['+', '-', '*', '/'],
+  randomLength: boolean = true
 ): Equation => {
+  if (randomLength) {
+    termCount = randomInt(1, termCount)
+  }
+
   // Fallback to '+' if enabledOperations is empty
   const availableOperators = enabledOperations.length > 0 
     ? (enabledOperations as MathOperator[])

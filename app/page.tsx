@@ -1,4 +1,4 @@
-import GameScreen from '@/components/game/GameScreen'
+import GameScreen from '@/components/game/core/GameScreen'
 import Footer from '@/components/nav/Footer'
 import { GameProvider } from '@/components/providers/GameProvider'
 

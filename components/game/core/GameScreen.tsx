@@ -1,7 +1,7 @@
 "use client"
-import DebugRow from './debug/DebugRow'
+import DebugRow from '../debug/DebugRow'
 import EquationRow from './EquationRow'
-import GameSettings from './GameSettings'
+import GameSettings from '../settings/GameSettings'
 
 const GameScreen = () => {
   return (
