@@ -10,6 +10,8 @@ export interface GameSettings {
 }
 
 interface GameContextType {
+  hasFocus: boolean;
+  setHasFocus: Dispatch<SetStateAction<boolean>>;
   gameType: GameType;
   setGameType: Dispatch<SetStateAction<GameType>>;
   currentEquation: Equation | undefined;
@@ -24,6 +26,7 @@ interface GameContextType {
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
+  const [hasFocus, setHasFocus] = useState<boolean>(true)
   const [gameType, setGameType] = useState<GameType>(GameType.ZEN)
   const [currentEquation, setCurrentEquation] = useState<Equation | undefined>(undefined)
   const [currentInput, setCurrentInput] = useState<string[]>([])
@@ -50,6 +53,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   return (
     <GameContext.Provider 
       value={{
+        hasFocus, setHasFocus,
         gameType, setGameType, 
         currentEquation, setCurrentEquation,
         currentInput, setCurrentInput,

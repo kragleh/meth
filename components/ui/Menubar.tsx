@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot'
 
 const Menubar = ({ children, className = '' }: { children: ReactNode } & HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={`bg-neutral-800 rounded-full p-1 flex gap-1 select-none ${className}`}>
+    <div className={`bg-menu rounded-full p-1 flex gap-1 select-none ${className}`}>
       {children}
     </div>
   )
@@ -28,7 +28,7 @@ export const MenubarItem = ({
     <Comp
       {...props}
       className={`
-        ${ disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-neutral-700/50' }
+        ${ disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-menu-hover' }
         ${ checked ? 'text-primary' : 'text-neutral-400' }
         duration-200 
         flex items-center justify-center gap-1 

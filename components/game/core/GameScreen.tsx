@@ -5,7 +5,7 @@ import GameSettings from '../settings/GameSettings'
 
 const GameScreen = () => {
   return (
-    <section className='flex flex-col items-center justify-center w-full h-screen'>
+    <section className='grid grid-cols-1 grid-rows-[1fr_auto_1fr] w-full'>
       <GameSettings />
       <EquationRow />
       <DebugRow />

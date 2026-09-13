@@ -4,7 +4,7 @@ import OperationSettings from './OperationSettings'
 
 const GameSettings = () => {
   return (
-    <section className='flex gap-4'>
+    <section className='flex flex-col lg:flex-row items-center justify-center gap-4 m-4 h-fit'>
       <GameTypeSettings />
       <LengthSettings />
       <OperationSettings />

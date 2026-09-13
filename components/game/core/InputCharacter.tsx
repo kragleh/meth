@@ -20,11 +20,13 @@ const InputCharacter = ({ character, index = 0, input = false }: InputCharacterP
         scale: 2,
         opacity: 0,
         rotate: initial,
+        filter: 'blur(2px)'
       }}
       animate={{
         scale: 1,
         opacity: 1,
         rotate: 0,
+        filter: 'blur(0px)'
       }}
       exit={{
         scale: 0,

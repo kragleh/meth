@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: "400"
+})
+
+const brains = JetBrains_Mono({
+  variable: "--font-brains",
+  weight: "variable"
 })
 
 export const metadata: Metadata = {
@@ -16,9 +21,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${poppins.variable} h-full antialiased`}
+      className={`${poppins.variable} ${brains.variable} h-full font-brains antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-neutral-900 text-white">
+      <body className="min-h-full flex flex-col bg-background text-white">
         { children }
       </body>
     </html>

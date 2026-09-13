@@ -11,8 +11,22 @@ const EquationInput = () => {
     currentInput, 
     setCurrentInput, 
     setCurrentEquation,
-    settings
+    settings,
+    setHasFocus
   } = useGame()
+
+  useEffect(() => {
+    const handleFocus = () => setHasFocus(true)
+    const handleBlur = () => setHasFocus(false)
+
+    window.addEventListener("focus", handleFocus)
+    window.addEventListener("blur", handleBlur)
+
+    return () => {
+      window.removeEventListener("focus", handleFocus)
+      window.removeEventListener("blur", handleBlur)
+    }
+  }, [])
 
   useEffect(() => {
     if (!currentEquation) return
@@ -20,41 +34,6 @@ const EquationInput = () => {
     const targetDigits = currentEquation.targetResult.toString().split("")
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      // easy validation (no invalid)
-      if (false) {
-        if (event.key === "Backspace") {
-          setCurrentInput((prev) => prev.slice(0, -1))
-          return
-        }
-
-        if (event.key === " ") {
-          setTimeout(() => {
-            setCurrentInput([])
-            newEquation()
-          }, 150)
-          return
-        }
-
-        if (!/^[0-9-]$/.test(event.key)) return 
-
-        const currentDigitIndex = currentInput.length
-        const expectedDigit = targetDigits[currentDigitIndex]
-
-        if (event.key === expectedDigit) {
-          const nextInput = [...currentInput, event.key]
-          setCurrentInput(nextInput)
-
-          if (nextInput.length === targetDigits.length) {
-            setTimeout(() => {
-              setCurrentInput([])
-              newEquation()
-            }, 150)
-          }
-        }
-
-        return
-      }
-
       if (event.key === "Backspace") {
         setCurrentInput((prev) => prev.slice(0, -1))
         return

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
 @theme {
+  --font-primary: "Poppins", sans-serif;
+  --font-brains: "JetBrains Mono", monospace;
+
   --color-primary: #FF9900;
+  --color-background: #171717;
+  --color-menu: #262626;
+  --color-menu-hover: #40404075;
 }

@@ -6,17 +6,20 @@ import InputCharacter from './InputCharacter'
 import { AnimatePresence, motion } from 'motion/react'
 
 const EquationRow = () => {
-  const game = useGame()
+  const {
+    currentEquation,
+    hasFocus
+  } = useGame()
 
-  if (!game.currentEquation) return <div className='h-80'></div>
+  if (!currentEquation) return <div className='h-80'></div>
 
-  const fullText = `${equationToString(game.currentEquation)} = `
+  const fullText = `${equationToString(currentEquation)} = `
 
   return (
-    <div className='text-9xl font-bold flex gap-1 whitespace-pre select-none h-80 items-center justify-center'>
+    <div className={'text-[clamp(1.5rem,5vw,6rem)] font-bold flex gap-1 whitespace-pre select-none items-center justify-center duration-200 ' + (hasFocus ? '' : 'blur-2xl')}>
       <AnimatePresence mode="wait">
         <motion.div
-          key={game.currentEquation.id}
+          key={currentEquation.id}
           className="flex"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
@@ -24,7 +27,7 @@ const EquationRow = () => {
         >
           {fullText.split('').map((ch, i) => (
             <InputCharacter
-              key={`${game.currentEquation?.id}-char-${i}`}
+              key={`${currentEquation?.id}-char-${i}`}
               character={ch}
               index={i}
               input={false}

@@ -9,7 +9,7 @@ const GameTypeSettings = () => {
   return (
     <Menubar>
       <MenubarItem disabled={ true } checked={ gameType === GameType.TIMED } onClick={ () => setGameType(GameType.ZEN) } >
-        <Clock size={16} /> Time
+        <Clock size={16} /> Timed
       </MenubarItem>
       <MenubarItem checked={ gameType === GameType.ZEN } onClick={ () => setGameType(GameType.ZEN) }>
         <Mountain size={16} /> Zen
