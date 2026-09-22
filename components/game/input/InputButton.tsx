@@ -24,7 +24,7 @@ const InputButton = ({ action, secondary }: { action: string, secondary?: boolea
   }
 
   return (
-    <button onClick={ onClick } className={'px-4 py-2 rounded-full w-full flex items-center justify-center ' + (secondary ? 'bg-neutral-800' : 'bg-neutral-900')}>
+    <button onClick={ onClick } className={'px-4 py-2 rounded-full w-full flex items-center justify-center text-xl ' + (secondary ? 'bg-neutral-800' : 'bg-neutral-900')}>
       { label }
     </button>
   )
