@@ -2,6 +2,7 @@
 import { Equation, generateEquation } from "@/lib/Equation";
 import { GameType } from "@/lib/GameType";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { useFocus } from "./FocusProvider";
 
 export interface GameSettings {
   length: number;
@@ -10,14 +11,10 @@ export interface GameSettings {
 }
 
 interface GameContextType {
-  hasFocus: boolean;
-  setHasFocus: Dispatch<SetStateAction<boolean>>;
   gameType: GameType;
   setGameType: Dispatch<SetStateAction<GameType>>;
   currentEquation: Equation | undefined;
   setCurrentEquation: Dispatch<SetStateAction<Equation | undefined>>;
-  currentInput: string[];
-  setCurrentInput: Dispatch<SetStateAction<string[]>>;
   settings: GameSettings;
   setSettings: Dispatch<SetStateAction<GameSettings>>;
   updateSettings: (partial: Partial<GameSettings>) => void;
@@ -26,10 +23,9 @@ interface GameContextType {
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [hasFocus, setHasFocus] = useState<boolean>(true)
+  const { setHasFocus } = useFocus()
   const [gameType, setGameType] = useState<GameType>(GameType.ZEN)
   const [currentEquation, setCurrentEquation] = useState<Equation | undefined>(undefined)
-  const [currentInput, setCurrentInput] = useState<string[]>([])
 
   const [settings, setSettings] = useState<GameSettings>({
     length: 3,
@@ -38,6 +34,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   })
 
   const updateSettings = (partial: Partial<GameSettings>) => {
+    setHasFocus(false)
+    
     setSettings((prev) => {
       const nextSettings = { ...prev, ...partial }
 
@@ -53,10 +51,8 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   return (
     <GameContext.Provider 
       value={{
-        hasFocus, setHasFocus,
         gameType, setGameType, 
         currentEquation, setCurrentEquation,
-        currentInput, setCurrentInput,
         settings, setSettings, updateSettings,
       }}
     >

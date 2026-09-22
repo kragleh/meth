@@ -4,13 +4,11 @@ import { equationToString } from '@/lib/Equation'
 import EquationInput from './EquationInput'
 import InputCharacter from './InputCharacter'
 import { AnimatePresence, motion } from 'motion/react'
+import { useFocus } from '@/components/providers/FocusProvider'
 
 const EquationRow = () => {
-  const {
-    currentEquation,
-    hasFocus,
-    setHasFocus
-  } = useGame()
+  const { hasFocus, setHasFocus } = useFocus()
+  const { currentEquation } = useGame()
 
   if (!currentEquation) return <div className='h-80' />
 
