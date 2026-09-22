@@ -10,11 +10,11 @@ const InputButton = ({ action, secondary }: { action: string, secondary?: boolea
   let label: ReactNode
 
   if (action === ' ') {
-    label = (<Space size={16} />)
+    label = (<Space size={24} />)
   } else if (action === 'delete') {
-    label = (<Delete size={16} />)
+    label = (<Delete size={24} />)
   } else if (action === 'enter') {
-    label = (<ArrowRight size={16} />)
+    label = (<ArrowRight size={24} />)
     onClick = () => {
       setOpened(false)
       setHasFocus(false)
@@ -24,7 +24,7 @@ const InputButton = ({ action, secondary }: { action: string, secondary?: boolea
   }
 
   return (
-    <button onClick={ onClick } className={'px-4 py-2 rounded-full w-full flex items-center justify-center text-xl ' + (secondary ? 'bg-neutral-800' : 'bg-neutral-900')}>
+    <button onClick={ onClick } className={'px-4 py-3 rounded-full w-full flex items-center justify-center text-3xl active:bg-neutral-700 duration-50 ' + (secondary ? 'bg-neutral-800' : 'bg-neutral-900')}>
       { label }
     </button>
   )

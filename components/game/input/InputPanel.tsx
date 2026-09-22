@@ -22,7 +22,7 @@ const InputPanel = () => {
 
       {
         opened && (
-          <section className='bg-neutral-950 p-2 rounded-t-2xl grid gap-1 grid-cols-4 grid-rows-4 z-10'>
+          <section className='bg-neutral-950 p-2 rounded-t-2xl grid gap-1 grid-cols-4 grid-rows-4 pb-2 z-10'>
             <InputButton action='1' />
             <InputButton action='2' />
             <InputButton action='3' />
